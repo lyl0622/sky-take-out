@@ -12,7 +12,6 @@ import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,5 +102,46 @@ public class EmployeeController {
         log.info("员工分页查询：{}",employeePageQueryDTO);
         PageResult pageResult=employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @ApiOperation("启用禁言员工账号")
+    @PostMapping("/status/{status}")
+    public Result startStop(@PathVariable Integer status,Long id){
+        log.info("启用禁言员工账号:status:{},id:{}",status,id);
+        employeeService.startStop(status,id);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return
+     */
+    @ApiOperation("根据id查询员工")
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Long id){
+        log.info("员工ID：{}",id);
+        Employee e=employeeService.getByid(id);
+        return Result.success(e);
+    }
+
+
+    /**
+     * 修改员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @ApiOperation("修改员工信息")
+    @PutMapping()
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("修改员工信息:{}",employeeDTO);
+         Employee e=employeeService.update(employeeDTO);
+         return Result.success(e);
     }
 }
