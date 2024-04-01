@@ -41,6 +41,6 @@ public interface DishMapper {
     @Select("select  * from dish where id=#{id}")
     Dish getId(Long id);
 
-    @Delete("delete from dish where id=#{id}")
-    void delete(Long id);
+
+    void deleteById(List<Long> ids);
 }
