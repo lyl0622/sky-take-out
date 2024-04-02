@@ -23,4 +23,6 @@ public interface DishService {
 
 
     DishDTO getId(Long id);
+
+    void status(Integer status, Long id);
 }
