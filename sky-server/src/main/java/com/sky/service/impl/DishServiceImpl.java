@@ -97,12 +97,13 @@ public class DishServiceImpl implements DishService {
         //判断当前菜品是否能被删除--是否被套餐相关联
         List<Long> setmealidsByDsihIds = setmealDishMapper.getSetmealidsByDsihIds(ids);
         if (setmealidsByDsihIds != null && setmealidsByDsihIds.size() > 0) {
-            throw  new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+            new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+            //删除菜品表中的菜品数据
+            dishMapper.deleteById(ids);
+            //删除口味表中的口味数据
+            dishFlavorMapper.deleteByDishID(ids);
+
         }
-        //删除菜品表中的菜品数据
-        dishMapper.deleteById(ids);
-        //删除口味表中的口味数据
-        dishFlavorMapper.deleteByDishID(ids);
     }
 
     /**
@@ -117,20 +118,6 @@ public class DishServiceImpl implements DishService {
         BeanUtils.copyProperties(dish, dishDTO);
         dishDTO.setFlavors(dishFlavorMapper.getId(id));
         return dishDTO;
-    }
-
-    /**
-     * 菜品的起售停售
-     * * @param status
-     * @param id
-     */
-    @Override
-    public void status(Integer status, Long id) {
-        Dish dish=Dish.builder()
-                .status(status)
-                .id(id)
-                .build();
-        dishMapper.update(dish);
     }
 
 
