@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -170,5 +171,18 @@ public class DishServiceImpl implements DishService {
             dishVOList.add(dishVO);
         }
         return dishVOList;
+    }
+
+    /**
+     * 菜品停售起售
+     * @param status
+     * @param id
+     */
+    @Override
+    public void StatusDish(Integer status, Long id) {
+        Dish dish = new Dish();
+        dish.setStatus(status);
+        dish.setId(id);
+        dishMapper.update(dish);
     }
 }
