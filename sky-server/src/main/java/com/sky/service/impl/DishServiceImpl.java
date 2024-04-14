@@ -20,6 +20,7 @@ import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,13 +100,13 @@ public class DishServiceImpl implements DishService {
         //判断当前菜品是否能被删除--是否被套餐相关联
         List<Long> setmealidsByDsihIds = setmealDishMapper.getSetmealidsByDsihIds(ids);
         if (setmealidsByDsihIds != null && setmealidsByDsihIds.size() > 0) {
-            new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
-            //删除菜品表中的菜品数据
-            dishMapper.deleteById(ids);
-            //删除口味表中的口味数据
-            dishFlavorMapper.deleteByDishID(ids);
-
+           throw  new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
+        //删除菜品表中的菜品数据
+        dishMapper.deleteById(ids);
+        //删除口味表中的口味数据
+        dishFlavorMapper.deleteByDishID(ids);
+
     }
 
     /**
@@ -186,6 +187,7 @@ public class DishServiceImpl implements DishService {
                 .build();
         return dishMapper.list(dish);
     }
+
 
 
     /**
