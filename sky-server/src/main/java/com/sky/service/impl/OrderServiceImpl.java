@@ -207,7 +207,10 @@ public class OrderServiceImpl implements OrderService {
     public void Cancel(OrdersCancelDTO ordersCancelDTO) throws Exception {
         // 根据id查询订单
         Orders ordersDB = orderMapper.getById(ordersCancelDTO.getId());
-
+        // 订单只有存在且状态为2（待接单）才可以取消订单
+        if (ordersDB == null || !ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
         //支付状态
         Integer payStatus = ordersDB.getPayStatus();
 //        if (payStatus == 1) {
