@@ -80,10 +80,11 @@ public interface OrderMapper {
      */
     Double getTurnover(Map map);
 
+
     /**
-     * 获取当前用户数量
-     * @param map
+     * 根据时间查询订单数
+     * @param orderMap
      * @return
      */
-    Integer getUserReport(Map map);
+    Integer getOrderStatistics(Map orderMap);
 }
