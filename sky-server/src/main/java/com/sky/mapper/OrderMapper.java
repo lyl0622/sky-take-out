@@ -79,4 +79,11 @@ public interface OrderMapper {
      * @return
      */
     Double getTurnover(Map map);
+
+    /**
+     * 获取当前用户数量
+     * @param map
+     * @return
+     */
+    Integer getUserReport(Map map);
 }
