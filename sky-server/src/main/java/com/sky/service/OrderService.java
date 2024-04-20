@@ -8,6 +8,11 @@ import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 
 public interface OrderService {
+    /**
+     * 用户下单
+     * @param ordersSubmitDTO
+     * @return
+     */
     OrderSubmitVO submitOrder(OrdersSubmitDTO ordersSubmitDTO);
 
     /**
@@ -67,4 +72,28 @@ public interface OrderService {
      * @return
      */
     OrderVO getDetails(Long id);
+
+    /**
+     * 历史订单查询
+     * @param page
+     * @param pageSize
+     * @param status
+     * @return
+     */
+    PageResult pageQueryUser(int page, int pageSize, Integer status);
+
+
+
+    /**
+     * 再来一单
+     * @param id
+     */
+    void repetition(Long id);
+
+    /**
+     * 客户催单
+     * @param id
+     */
+    void reminder(Long id);
+
 }

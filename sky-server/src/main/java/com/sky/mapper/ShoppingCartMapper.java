@@ -28,6 +28,10 @@ public interface ShoppingCartMapper {
     void updateNumber (ShoppingCart shoppingCart);
 
 
+    /**
+     * 加入购物车
+     * @param shoppingCart
+     */
     @Insert("insert shopping_cart(name, image, user_id, dish_id, setmeal_id, dish_flavor, amount, create_time) values " +
             "(#{name},#{image},#{userId},#{dishId},#{setmealId},#{dishFlavor},#{amount},#{createTime})")
     void insert(ShoppingCart shoppingCart);
@@ -38,4 +42,11 @@ public interface ShoppingCartMapper {
 
 
     void updateNumberById(ShoppingCart shoppingCart);
+
+    /**
+     * 批量插入购物车数据
+     *
+     * @param shoppingCartList
+     */
+    void insertBatch(List<ShoppingCart> shoppingCartList);
 }

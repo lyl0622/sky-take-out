@@ -8,9 +8,11 @@ import com.sky.vo.OrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -43,7 +45,7 @@ public interface OrderMapper {
      * @param ordersPageQueryDTO
      * @return
      */
-    Page<OrderVO> page(OrdersPageQueryDTO ordersPageQueryDTO);
+    Page<Orders> page(OrdersPageQueryDTO ordersPageQueryDTO);
 
     /**
      * 根据id查找订单
@@ -69,4 +71,12 @@ public interface OrderMapper {
      */
     @Select("select * from orders where status = #{status} and order_time <#{time}")
     List<Orders> getByStatusAndOrderTime(Integer status, LocalDateTime time);
+
+
+    /**
+     *  获取当前时间的营业额
+     * @param map
+     * @return
+     */
+    Double getTurnover(Map map);
 }
